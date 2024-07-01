@@ -125,7 +125,7 @@ export const App = () => (
                 name="type"
                 value="bouquets"
                 id="flower"
-                checked
+                defaultChecked
               />
               <label
                 className="filter__label filter__label_flower"
@@ -992,7 +992,7 @@ export const App = () => (
                   type="radio"
                   name="payment-online"
                   value="true"
-                  checked="true"
+                  defaultChecked="true"
                 />
                 Оплата онлайн
               </label>

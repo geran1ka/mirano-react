@@ -176,7 +176,9 @@ iframe {
   margin-bottom: 24px;
 }
 .hero__title {
-  font-family: Playfair Display, sans-serif;
+  font-family:
+    Playfair Display,
+    sans-serif;
   font-weight: 400;
   font-size: clamp(80px, 80px + 40 * (100vw - 1024px) / 416, 120px);
   line-height: 1.2;
@@ -185,7 +187,9 @@ iframe {
   color: #607900;
 }
 .hero__subtitle {
-  font-family: Playfair Display, sans-serif;
+  font-family:
+    Playfair Display,
+    sans-serif;
   font-style: italic;
   font-weight: 400;
   font-size: 40px;
@@ -291,7 +295,7 @@ iframe {
   outline: 2px solid #d17d2f;
   outline-offset: 5px;
 }
-.filter__radio:checked + .filter__label {
+.filter__radio:defaultchecked + .filter__label {
   background-color: #f0a35b;
 }
 .filter__choices {
@@ -371,7 +375,9 @@ iframe {
   min-height: 310px;
 }
 .goods__title {
-  font-family: Playfair Display, sans-serif;
+  font-family:
+    Playfair Display,
+    sans-serif;
   font-weight: 400;
   font-size: 50px;
   line-height: 1.2;
@@ -448,7 +454,9 @@ iframe {
   padding-bottom: 140px;
 }
 .subscribe__title {
-  font-family: Playfair Display, sans-serif;
+  font-family:
+    Playfair Display,
+    sans-serif;
   font-weight: 400;
   font-size: 50px;
   line-height: 1.2;
@@ -780,7 +788,7 @@ iframe {
   background-color: #d17d2f;
   opacity: 0;
 }
-.order__radio:checked:after {
+.order__radio:defaultchecked:after {
   opacity: 1;
 }
 .order__delivery {
