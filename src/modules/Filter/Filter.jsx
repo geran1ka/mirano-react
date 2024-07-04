@@ -1,17 +1,18 @@
-import "./Choices.modules.scss";
-import "./Filter.modules.scss";
+import classNames from "classnames";
+import sc from "./Choices.module.scss";
+import s from "./Filter.module.scss";
 
 export const Filter = () => {
   console.log("filter");
 
   return (
-    <section className="filter">
+    <section className={s.filter}>
       <h2 className="visually-hidden"></h2>
       <div className="container">
-        <form className="filter__form">
-          <fieldset className="filter__group">
+        <form className={s.form}>
+          <fieldset className={s.group}>
             <input
-              className="filter__radio"
+              className={s.radio}
               type="radio"
               name="type"
               value="bouquets"
@@ -19,52 +20,52 @@ export const Filter = () => {
               defaultChecked
             />
             <label
-              className="filter__label filter__label_flower"
+              className={classNames(s.label, s.label_flower)}
               htmlFor="flower">
               Цветы
             </label>
 
             <input
-              className="filter__radio"
+              className={s.radio}
               type="radio"
               name="type"
               value="toys"
               id="toys"
             />
-            <label className="filter__label filter__label_toys" htmlFor="toys">
+            <label className={classNames(s.label, s.label_toys)} htmlFor="toys">
               Игрушки
             </label>
 
             <input
-              className="filter__radio"
+              className={s.radio}
               type="radio"
               name="type"
               value="postcards"
               id="postcard"
             />
             <label
-              className="filter__label filter__label_postcard"
+              className={classNames(s.label, s.label_postcard)}
               htmlFor="postcard">
               Открытки
             </label>
           </fieldset>
 
-          <fieldset className="filter__group filter__group_choices">
-            <div className="filter__choices choices">
-              <button className="filter__select choices__btn" type="button">
+          <fieldset className={classNames(s.group, s.group_choices)}>
+            <div className={classNames(s.choices, sc.choices)}>
+              <button className={classNames(s.select, sc.btn)} type="button">
                 Цена
               </button>
 
-              <div className="choices__box filter__choices-box">
-                <fieldset className="filter__price">
+              <div className={classNames(sc.box, s.choicesBox)}>
+                <fieldset className={s.price}>
                   <input
-                    className="filter__input-price"
+                    className={s.inputPrice}
                     type="text"
                     name="minPrice"
                     placeholder="от"
                   />
                   <input
-                    className="filter__input-price"
+                    className={s.inputPrice}
                     type="text"
                     name="maxPrice"
                     placeholder="до"
@@ -73,35 +74,36 @@ export const Filter = () => {
               </div>
             </div>
 
-            <div className="filter__choices filter__choices_type choices">
-              <button className="filter__select choices__btn" type="button">
+            <div className={classNames(s.choices, s.choices_type, sc.choices)}>
+              <button className={classNames(s.select, sc.btn)} type="button">
                 Тип товара
               </button>
 
-              <div className="choices__box filter__choices-box filter__choices-box_type">
-                <ul className="filter__type-list">
-                  <li className="filter__type-item">
-                    <button className="filter__type-button" type="button">
+              <div
+                className={classNames(sc.box, s.choicesBox, s.choicesBox_type)}>
+                <ul className={s.typeList}>
+                  <li className={s.typeItem}>
+                    <button className={s.typeButton} type="button">
                       Монобукеты
                     </button>
                   </li>
-                  <li className="filter__type-item">
-                    <button className="filter__type-button" type="button">
+                  <li className={s.typeItem}>
+                    <button className={s.typeButton} type="button">
                       Авторские букеты
                     </button>
                   </li>
-                  <li className="filter__type-item">
-                    <button className="filter__type-button" type="button">
+                  <li className={s.typeItem}>
+                    <button className={s.typeButton} type="button">
                       Цветы в коробке
                     </button>
                   </li>
-                  <li className="filter__type-item">
-                    <button className="filter__type-button" type="button">
+                  <li className={s.typeItem}>
+                    <button className={s.typeButton} type="button">
                       Цветы в корзине
                     </button>
                   </li>
-                  <li className="filter__type-item">
-                    <button className="filter__type-button" type="button">
+                  <li className={s.typeItem}>
+                    <button className={s.typeButton} type="button">
                       Букеты из сухоцветов
                     </button>
                   </li>

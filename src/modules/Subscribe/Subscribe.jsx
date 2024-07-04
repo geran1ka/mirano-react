@@ -1,23 +1,21 @@
-import "./Subscribe.modules.scss";
+import s from "./Subscribe.module.scss";
 export const Subscribe = () => {
   console.log("subscribe");
 
   return (
-    <section className="subscribe">
+    <section className={s.subscribe}>
       <div className="container">
-        <h2 className="subscribe__title">Подпишись на&nbsp;рассылку</h2>
+        <h2 className={s.title}>Подпишись на&nbsp;рассылку</h2>
 
-        <form className="subscribe__form" action="#">
+        <form className={s.form} action="#">
           <input
-            className="subscribe__input"
+            className={s.input}
             type="email"
             name="email"
             placeholder="E-mail"
           />
 
-          <button
-            className="subscribe__button"
-            aria-label="подписаться на рассылку">
+          <button className={s.button} aria-label="подписаться на рассылку">
             <svg
               width="12"
               height="20"
