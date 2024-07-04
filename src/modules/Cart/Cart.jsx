@@ -7,7 +7,7 @@ export const Cart = () => {
   console.log("cart");
 
   return (
-    <section className={classNames(s.cart, s.open)}>
+    <section className={classNames(s.cart)}>
       <div className={s.container}>
         <div className={s.header}>
           <h3 className={s.title}>Ваш заказ</h3>

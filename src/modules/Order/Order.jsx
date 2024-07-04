@@ -17,6 +17,9 @@ export const Order = () => {
             Ваш номер заказа: 971f365a-caa1-4cdb-9446-bad2eff047e1
           </p>
         </div>
+        <button className={s.close} type="button">
+          ×
+        </button>
       </div>
     );
   }

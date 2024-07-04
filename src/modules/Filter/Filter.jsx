@@ -1,6 +1,6 @@
 import classNames from "classnames";
-import sc from "./Choices.module.scss";
 import s from "./Filter.module.scss";
+import { Choices } from "../Choices/Choices";
 
 export const Filter = () => {
   console.log("filter");
@@ -51,65 +51,52 @@ export const Filter = () => {
           </fieldset>
 
           <fieldset className={classNames(s.group, s.group_choices)}>
-            <div className={classNames(s.choices, sc.choices)}>
-              <button className={classNames(s.select, sc.btn)} type="button">
-                Цена
-              </button>
+            <Choices buttonLabel="Цена">
+              <fieldset className={s.price}>
+                <input
+                  className={s.inputPrice}
+                  type="text"
+                  name="minPrice"
+                  placeholder="от"
+                />
+                <input
+                  className={s.inputPrice}
+                  type="text"
+                  name="maxPrice"
+                  placeholder="до"
+                />
+              </fieldset>
+            </Choices>
 
-              <div className={classNames(sc.box, s.choicesBox)}>
-                <fieldset className={s.price}>
-                  <input
-                    className={s.inputPrice}
-                    type="text"
-                    name="minPrice"
-                    placeholder="от"
-                  />
-                  <input
-                    className={s.inputPrice}
-                    type="text"
-                    name="maxPrice"
-                    placeholder="до"
-                  />
-                </fieldset>
-              </div>
-            </div>
-
-            <div className={classNames(s.choices, s.choices_type, sc.choices)}>
-              <button className={classNames(s.select, sc.btn)} type="button">
-                Тип товара
-              </button>
-
-              <div
-                className={classNames(sc.box, s.choicesBox, s.choicesBox_type)}>
-                <ul className={s.typeList}>
-                  <li className={s.typeItem}>
-                    <button className={s.typeButton} type="button">
-                      Монобукеты
-                    </button>
-                  </li>
-                  <li className={s.typeItem}>
-                    <button className={s.typeButton} type="button">
-                      Авторские букеты
-                    </button>
-                  </li>
-                  <li className={s.typeItem}>
-                    <button className={s.typeButton} type="button">
-                      Цветы в коробке
-                    </button>
-                  </li>
-                  <li className={s.typeItem}>
-                    <button className={s.typeButton} type="button">
-                      Цветы в корзине
-                    </button>
-                  </li>
-                  <li className={s.typeItem}>
-                    <button className={s.typeButton} type="button">
-                      Букеты из сухоцветов
-                    </button>
-                  </li>
-                </ul>
-              </div>
-            </div>
+            <Choices className={s.choices_type} buttonLabel="Тип товара">
+              <ul className={s.typeList}>
+                <li className={s.typeItem}>
+                  <button className={s.typeButton} type="button">
+                    Монобукеты
+                  </button>
+                </li>
+                <li className={s.typeItem}>
+                  <button className={s.typeButton} type="button">
+                    Авторские букеты
+                  </button>
+                </li>
+                <li className={s.typeItem}>
+                  <button className={s.typeButton} type="button">
+                    Цветы в коробке
+                  </button>
+                </li>
+                <li className={s.typeItem}>
+                  <button className={s.typeButton} type="button">
+                    Цветы в корзине
+                  </button>
+                </li>
+                <li className={s.typeItem}>
+                  <button className={s.typeButton} type="button">
+                    Букеты из сухоцветов
+                  </button>
+                </li>
+              </ul>
+            </Choices>
           </fieldset>
         </form>
       </div>
