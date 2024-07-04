@@ -1,17 +1,18 @@
+import classNames from "classnames";
 import { goodsArray } from "../../goodsArray";
 import { CartItem } from "../CartItem/CartItem";
-import "./Cart.modules.scss";
+import s from "./Cart.module.scss";
 
 export const Cart = () => {
   console.log("cart");
 
   return (
-    <section className="cart cart_open">
-      <div className="cart__container">
-        <div className="cart__header">
-          <h3 className="cart__title">Ваш заказ</h3>
+    <section className={classNames(s.cart, s.open)}>
+      <div className={s.container}>
+        <div className={s.header}>
+          <h3 className={s.title}>Ваш заказ</h3>
 
-          <button className="cart__close">
+          <button className={s.close}>
             <svg
               width="28"
               height="28"
@@ -38,17 +39,17 @@ export const Cart = () => {
           </button>
         </div>
 
-        <p className="cart__date-delivery">сегодня в 14:00</p>
+        <p className={s.dateDelivery}>сегодня в 14:00</p>
 
-        <ul className="cart__list">
+        <ul className={s.list}>
           {goodsArray.map((item) => (
             <CartItem key={item.id} {...item} />
           ))}
         </ul>
 
-        <div className="cart__footer">
-          <button className="cart__order-btn">Оформить</button>
-          <p className="cart__price cart__price_total">0&nbsp;₽</p>
+        <div className={s.footer}>
+          <button className={s.orderBtn}>Оформить</button>
+          <p className={classNames(s.price, s.price_total)}>0&nbsp;₽</p>
         </div>
       </div>
     </section>

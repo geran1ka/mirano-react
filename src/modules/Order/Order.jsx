@@ -1,9 +1,27 @@
 import "./Order.modules.scss";
+
 export const Order = () => {
+  const isOrder = false;
+  const isOpen = false;
   console.log("order");
 
+  if (!isOpen) return null;
+
+  if (isOrder) {
+    return (
+      <div className="order">
+        <div className="order__wrapper">
+          <h2 className="order__title">Заказ оформлен!</h2>
+          <p className="order__id">
+            Ваш номер заказа: 971f365a-caa1-4cdb-9446-bad2eff047e1
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="order" style={{ display: "none" }}>
+    <div className="order">
       <div className="order__wrapper">
         <h2 className="order__title">Оформить заказ</h2>
         <form className="order__form" id="order">
