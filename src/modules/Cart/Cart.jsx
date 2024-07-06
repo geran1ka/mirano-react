@@ -2,17 +2,30 @@ import classNames from "classnames";
 import { goodsArray } from "../../goodsArray";
 import { CartItem } from "../CartItem/CartItem";
 import s from "./Cart.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleCart } from "../../redux/cartSlice";
+import { openModal } from "../../redux/modalSlice";
 
 export const Cart = () => {
   console.log("cart");
+  const dispatch = useDispatch();
+  const isOpenCart = useSelector((state) => state.cart.isOpen);
+
+  const handlerCartClose = () => {
+    dispatch(toggleCart());
+  };
+
+  const handlerModalToggle = () => {
+    dispatch(openModal());
+  };
 
   return (
-    <section className={classNames(s.cart)}>
+    <section className={classNames(s.cart, isOpenCart && s.open)}>
       <div className={s.container}>
         <div className={s.header}>
           <h3 className={s.title}>Ваш заказ</h3>
 
-          <button className={s.close}>
+          <button className={s.close} onClick={handlerCartClose}>
             <svg
               width="28"
               height="28"
@@ -48,7 +61,9 @@ export const Cart = () => {
         </ul>
 
         <div className={s.footer}>
-          <button className={s.orderBtn}>Оформить</button>
+          <button className={s.orderBtn} onClick={handlerModalToggle}>
+            Оформить
+          </button>
           <p className={classNames(s.price, s.price_total)}>0&nbsp;₽</p>
         </div>
       </div>

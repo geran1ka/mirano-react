@@ -1,23 +1,30 @@
 import classNames from "classnames";
 import s from "./Order.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { closeModal } from "../../redux/modalSlice";
 
 export const Order = () => {
   const isOrder = false;
-  const isOpen = false;
+  const isOpenModal = useSelector((state) => state.modal.isOpenModal);
   console.log("order");
+  const dispatch = useDispatch();
 
-  if (!isOpen) return null;
+  const handlerCloseModal = () => {
+    dispatch(closeModal());
+  };
+
+  if (!isOpenModal) return null;
 
   if (isOrder) {
     return (
-      <div className={s.order}>
+      <div className={s.order} onClick={handlerCloseModal}>
         <div className={s.wrapper}>
           <h2 className={s.title}>Заказ оформлен!</h2>
           <p className={s.id}>
             Ваш номер заказа: 971f365a-caa1-4cdb-9446-bad2eff047e1
           </p>
         </div>
-        <button className={s.close} type="button">
+        <button className={s.close} type="button" onClick={handlerCloseModal}>
           ×
         </button>
       </div>
@@ -25,7 +32,7 @@ export const Order = () => {
   }
 
   return (
-    <div className={s.order}>
+    <div className={s.order} onClick={handlerCloseModal}>
       <div className={s.wrapper}>
         <h2 className={s.title}>Оформить заказ</h2>
         <form className={s.form} id="order">
@@ -120,7 +127,7 @@ export const Order = () => {
           </button>
         </div>
       </div>
-      <button className={s.close} type="button">
+      <button className={s.close} type="button" onClick={handlerCloseModal}>
         ×
       </button>
     </div>

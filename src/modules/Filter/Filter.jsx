@@ -1,9 +1,17 @@
 import classNames from "classnames";
 import s from "./Filter.module.scss";
 import { Choices } from "../Choices/Choices";
+import { useSelector } from "react-redux";
 
 export const Filter = () => {
   console.log("filter");
+
+  const isOpenChoicePrice = useSelector(
+    (state) => state.choices.isOpenChoicePrice,
+  );
+  const isOpenChoiceTypeGoods = useSelector(
+    (state) => state.choices.isOpenChoiceTypeGoods,
+  );
 
   return (
     <section className={s.filter}>
@@ -51,7 +59,7 @@ export const Filter = () => {
           </fieldset>
 
           <fieldset className={classNames(s.group, s.group_choices)}>
-            <Choices buttonLabel="Цена">
+            <Choices buttonLabel="Цена" type="price" isOpen={isOpenChoicePrice}>
               <fieldset className={s.price}>
                 <input
                   className={s.inputPrice}
@@ -68,7 +76,11 @@ export const Filter = () => {
               </fieldset>
             </Choices>
 
-            <Choices className={s.choices_type} buttonLabel="Тип товара">
+            <Choices
+              className={s.choices_type}
+              buttonLabel="Тип товара"
+              type="typeGoods"
+              isOpen={isOpenChoiceTypeGoods}>
               <ul className={s.typeList}>
                 <li className={s.typeItem}>
                   <button className={s.typeButton} type="button">

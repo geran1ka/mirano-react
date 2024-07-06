@@ -1,8 +1,15 @@
 import classNames from "classnames";
 import s from "./Header.module.scss";
+import { useDispatch } from "react-redux";
+import { toggleCart } from "../../redux/cartSlice";
 
 export const Header = () => {
   console.log("header");
+  const dispatch = useDispatch();
+
+  const handlerCartToggle = () => {
+    dispatch(toggleCart());
+  };
 
   return (
     <header className={s.header}>
@@ -40,7 +47,9 @@ export const Header = () => {
           alt="Логотип Mirano Flower Boutique"
         />
 
-        <button className={s.cartButton}>0</button>
+        <button className={s.cartButton} onClick={handlerCartToggle}>
+          0
+        </button>
       </div>
     </header>
   );

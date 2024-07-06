@@ -1,14 +1,30 @@
 import classNames from "classnames";
 import s from "./Choices.module.scss";
-import { useState } from "react";
 
-export const Choices = ({ children, buttonLabel, className }) => {
-  const [isOpen, setIsOpen] = useState(false);
+import { useDispatch } from "react-redux";
+import {
+  closeChoicePrice,
+  closeChoiceTypeGoods,
+  toggleChoicePrice,
+  toggleChoiceTypeGoods,
+} from "../../redux/choicesSlice";
+
+export const Choices = ({ children, buttonLabel, className, type, isOpen }) => {
+  const dispatch = useDispatch();
 
   console.log("className: ", className);
   console.log("choices");
   const handleToggle = () => {
-    setIsOpen((oldIsOpen) => !isOpen);
+    if (type === "price") {
+      dispatch(closeChoiceTypeGoods());
+      dispatch(toggleChoicePrice());
+    }
+
+    if (type === "typeGoods") {
+      dispatch(closeChoicePrice());
+      dispatch(toggleChoiceTypeGoods());
+    }
+    // setIsOpen((oldIsOpen) => !isOpen);
   };
 
   return (
