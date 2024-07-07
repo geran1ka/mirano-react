@@ -16,7 +16,16 @@ const cartSlice = createSlice({
       state.isOpen = !state.isOpen;
     },
     addItemToCart: (state, action) => {
-      localStorage.setItem("cart", JSON.stringify(action.payload));
+      const { id, img, title, dateDelivery, price, count = 1 } = action.payload;
+
+      const existingItem = state.items.find((item) => item.id === id);
+      if (existingItem) {
+        existingItem.count = count;
+      } else {
+        state.items.push({ id, img, title, dateDelivery, price, count });
+      }
+
+      localStorage.setItem("cart", JSON.stringify(state.items));
     },
   },
 });

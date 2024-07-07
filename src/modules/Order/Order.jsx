@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../../redux/modalSlice";
 
 export const Order = () => {
-  const isOrder = false;
+  const isOrderReasdy = false;
   const isOpenModal = useSelector((state) => state.modal.isOpenModal);
   const dispatch = useDispatch();
 
@@ -19,7 +19,7 @@ export const Order = () => {
   return (
     <div className={s.order} onClick={handlerCloseModal}>
       <div className={s.wrapper}>
-        {isOrder ? (
+        {isOrderReasdy ? (
           <>
             <h2 className={s.title}>Заказ оформлен!</h2>
             <p className={s.id}>
