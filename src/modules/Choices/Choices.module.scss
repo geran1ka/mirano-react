@@ -18,6 +18,10 @@
   }
 }
 
+.btn_open::after {
+  transform: rotate(180deg);
+}
+
 .box {
   position: absolute;
   top: calc(100% + 20px);
