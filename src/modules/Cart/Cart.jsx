@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import { goodsArray } from "../../goodsArray";
 import { CartItem } from "../CartItem/CartItem";
 import s from "./Cart.module.scss";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,7 +6,6 @@ import { closeCart, toggleCart } from "../../redux/cartSlice";
 import { openModal } from "../../redux/modalSlice";
 
 export const Cart = () => {
-  console.log("cart");
   const dispatch = useDispatch();
   const isOpenCart = useSelector((state) => state.cart.isOpen);
   const items = useSelector((state) => state.cart.items);
