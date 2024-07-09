@@ -2,25 +2,18 @@ import classNames from "classnames";
 import { Card } from "../Card/Card";
 import { Cart } from "../Cart/Cart";
 import s from "./Goods.module.scss";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { fetchGoods } from "../../redux/goodsSlice";
+import { useSelector } from "react-redux";
+
 import { API_URL } from "../../const";
 
 export const Goods = () => {
   console.log("goods");
-  const dispatch = useDispatch();
+
   const {
     items: goods,
     status: goodsStatus,
     error,
   } = useSelector((state) => state.goods);
-
-  useEffect(() => {
-    if (goodsStatus === "idle") {
-      dispatch(fetchGoods());
-    }
-  }, [dispatch, goodsStatus]);
 
   let content = null;
   if (goodsStatus === "loading") {
@@ -57,9 +50,8 @@ export const Goods = () => {
 
           {content}
         </div>
+        <Cart />
       </div>
-
-      <Cart />
     </section>
   );
 };

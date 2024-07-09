@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import s from "./Header.module.scss";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleCart } from "../../redux/cartSlice";
 
 export const Header = () => {
@@ -10,6 +10,8 @@ export const Header = () => {
   const handlerCartToggle = () => {
     dispatch(toggleCart());
   };
+
+  const itemsCart = useSelector((state) => state.cart.items);
 
   return (
     <header className={s.header}>
@@ -48,7 +50,7 @@ export const Header = () => {
         />
 
         <button className={s.cartButton} onClick={handlerCartToggle}>
-          0
+          {itemsCart ? itemsCart.length : 0}
         </button>
       </div>
     </header>

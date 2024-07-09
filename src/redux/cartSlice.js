@@ -25,7 +25,7 @@ const cartSlice = createSlice({
         state.items.push({ id, img, title, dateDelivery, price, count });
       }
 
-      localStorage.setItem("cart", JSON.stringify(state.items));
+      localStorage.setItem("cartItems", JSON.stringify(state.items));
     },
   },
 });
