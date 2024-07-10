@@ -5,9 +5,11 @@ import { useEffect, useRef, useState } from "react";
 import { fetchGoods } from "../../redux/goodsSlice";
 import { useDispatch } from "react-redux";
 import { debounce, getValidFilters } from "../../util";
+import { toggleName } from "../../redux/choicesSlice";
 
 export const Filter = () => {
   const [openChoice, setOpenChoice] = useState(null);
+
   const dispatch = useDispatch();
   const [filters, setFilters] = useState({
     type: "bouquets",
@@ -16,16 +18,25 @@ export const Filter = () => {
     category: "",
   });
 
+  const prevFiltersRef = useRef({});
+
   const debounceFetchGoods = useRef(
     debounce((filters) => {
-      const validFilters = getValidFilters(filters);
-      dispatch(fetchGoods(validFilters));
+      dispatch(fetchGoods(filters));
     }, 300),
   ).current;
 
   useEffect(() => {
-    debounceFetchGoods(filters);
-  }, [debounceFetchGoods, filters]);
+    const prevFilters = prevFiltersRef.current;
+    const validFilters = getValidFilters(filters);
+
+    if (prevFilters.type !== filters.type) {
+      dispatch(fetchGoods(validFilters));
+    } else {
+      debounceFetchGoods(filters);
+    }
+    prevFiltersRef.current = filters;
+  }, [dispatch, debounceFetchGoods, filters]);
 
   const handleChoicesToggle = (index) => {
     setOpenChoice(openChoice === index ? null : index);
@@ -40,8 +51,15 @@ export const Filter = () => {
 
   const handelPriceChange = ({ target }) => {
     const { name, value } = target;
-    const newFilters = { ...filters, [name]: value ? parseInt(value, 10) : "" };
+    const newFilters = {
+      ...filters,
+      [name]: !isNaN(parseInt(value, 10)) ? value : "",
+    };
     setFilters(newFilters);
+  };
+
+  const handlerChangeName = (e) => {
+    dispatch(toggleName(e.target.textContent));
   };
 
   return (
@@ -61,7 +79,8 @@ export const Filter = () => {
             />
             <label
               className={classNames(s.label, s.label_flower)}
-              htmlFor="flower">
+              htmlFor="flower"
+              onClick={handlerChangeName}>
               Цветы
             </label>
 
@@ -74,7 +93,10 @@ export const Filter = () => {
               checked={filters.type === "toys"}
               onChange={handelTypeChange}
             />
-            <label className={classNames(s.label, s.label_toys)} htmlFor="toys">
+            <label
+              className={classNames(s.label, s.label_toys)}
+              htmlFor="toys"
+              onClick={handlerChangeName}>
               Игрушки
             </label>
 
@@ -89,7 +111,8 @@ export const Filter = () => {
             />
             <label
               className={classNames(s.label, s.label_postcard)}
-              htmlFor="postcard">
+              htmlFor="postcard"
+              onClick={handlerChangeName}>
               Открытки
             </label>
           </fieldset>

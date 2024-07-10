@@ -7,13 +7,14 @@ import { useSelector } from "react-redux";
 import { API_URL } from "../../const";
 
 export const Goods = () => {
-  console.log("goods");
-
   const {
     items: goods,
     status: goodsStatus,
     error,
   } = useSelector((state) => state.goods);
+
+  const title = useSelector((state) => state.choices.title);
+  console.log("title: ", title);
 
   let content = null;
   if (goodsStatus === "loading") {
@@ -46,7 +47,7 @@ export const Goods = () => {
     <section className={s.goods}>
       <div className={classNames("container", s.container)}>
         <div className={s.box}>
-          <h2 className={s.title}>Цветы</h2>
+          <h2 className={s.title}>{title.toUpperCase()}</h2>
 
           {content}
         </div>

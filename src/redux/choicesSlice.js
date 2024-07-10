@@ -1,34 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  isOpenChoicePrice: false,
-  isOpenChoiceTypeGoods: false,
+  title: "цветы",
 };
 
 const choicesSlice = createSlice({
   name: "choices",
   initialState,
   reducers: {
-    toggleChoicePrice(state) {
-      state.isOpenChoicePrice = !state.isOpenChoicePrice;
-    },
-    closeChoicePrice(state) {
-      state.isOpenChoicePrice = false;
-    },
-    toggleChoiceTypeGoods(state) {
-      state.isOpenChoiceTypeGoods = !state.isOpenChoiceTypeGoods;
-    },
-    closeChoiceTypeGoods(state) {
-      state.isOpenChoiceTypeGoods = false;
+    toggleName(state, action) {
+      console.log("action: ", action);
+      state.title = action.payload;
     },
   },
 });
 
 export default choicesSlice.reducer;
 
-export const {
-  toggleChoicePrice,
-  closeChoicePrice,
-  toggleChoiceTypeGoods,
-  closeChoiceTypeGoods,
-} = choicesSlice.actions;
+export const { toggleName } = choicesSlice.actions;
