@@ -26,3 +26,5 @@ export const debounce = (fn, delay) => {
     }, delay);
   };
 };
+
+export const isNumber = (n) => !isNaN(parseInt(n) && isFinite(n));

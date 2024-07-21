@@ -6,22 +6,20 @@ import { useSelector } from "react-redux";
 
 import { API_URL } from "../../const";
 
-export const Goods = () => {
+export const Goods = ({ title }) => {
+  console.log("title: ", title);
   const {
     items: goods,
     status: goodsStatus,
     error,
   } = useSelector((state) => state.goods);
 
-  const title = useSelector((state) => state.choices.title);
-  console.log("title: ", title);
-
   let content = null;
   if (goodsStatus === "loading") {
     content = <p>Loading...</p>;
   }
 
-  if (goodsStatus === "success") {
+  if (goodsStatus === "success" && goods.length) {
     content = (
       <ul className={s.list}>
         {goods.map((item) => (
@@ -40,6 +38,10 @@ export const Goods = () => {
     );
   }
 
+  if (!goods.length) {
+    content = <p>По вашему запросу ничего не найдено</p>;
+  }
+
   if (goodsStatus === "failed") {
     content = <p>Error...{error}</p>;
   }
@@ -47,7 +49,7 @@ export const Goods = () => {
     <section className={s.goods}>
       <div className={classNames("container", s.container)}>
         <div className={s.box}>
-          <h2 className={s.title}>{title.toUpperCase()}</h2>
+          <h2 className={s.title}>{title}</h2>
 
           {content}
         </div>

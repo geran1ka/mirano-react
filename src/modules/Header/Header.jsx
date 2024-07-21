@@ -2,26 +2,39 @@ import classNames from "classnames";
 import s from "./Header.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleCart } from "../../redux/cartSlice";
+import { useState } from "react";
+import { fetchGoods } from "../../redux/goodsSlice";
+import { changeType } from "../../redux/filtersSlice";
 
-export const Header = () => {
-  console.log("header");
+export const Header = ({ setTitleGoods }) => {
   const dispatch = useDispatch();
+  const itemsCart = useSelector((state) => state.cart.items);
+  const [searchValue, setSearchValue] = useState("");
 
   const handlerCartToggle = () => {
     dispatch(toggleCart());
   };
 
-  const itemsCart = useSelector((state) => state.cart.items);
-
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(fetchGoods({ search: searchValue }));
+    setTitleGoods("Результат поиска");
+    setSearchValue("");
+    dispatch(changeType(""));
+  };
   return (
     <header className={s.header}>
       <div className={classNames("container", s.container)}>
-        <form className={s.form} action="#">
+        <form className={s.form} action="#" onSubmit={handleSubmit}>
           <input
             className={s.input}
             type="search"
             name="search"
             placeholder="Букет из роз"
+            value={searchValue}
+            onChange={({ target }) => {
+              setSearchValue(target.value);
+            }}
           />
 
           <button className={s.searchButton} aria-label="начать поиск">

@@ -6,11 +6,12 @@ import { Header } from "./modules/Header/Header";
 import { Hero } from "./modules/Hero/Hero";
 import { Order } from "./modules/Order/Order";
 import { Subscribe } from "./modules/Subscribe/Subscribe";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { registerCart } from "./redux/cartSlice";
 
 export const App = () => {
   const dispatch = useDispatch();
+  const [titleGoods, setTitleGoods] = useState("");
 
   useEffect(() => {
     const initializeCart = async () => {
@@ -22,14 +23,14 @@ export const App = () => {
 
   return (
     <>
-      <Header />
+      <Header setTitleGoods={setTitleGoods} />
 
       <main>
         <Hero />
 
-        <Filter />
+        <Filter setTitleGoods={setTitleGoods} />
 
-        <Goods />
+        <Goods title={titleGoods} />
 
         <Subscribe />
       </main>

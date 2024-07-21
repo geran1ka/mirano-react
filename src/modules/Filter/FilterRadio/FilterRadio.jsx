@@ -1,8 +1,7 @@
 import classNames from "classnames";
-import s from "./Filter.module.scss";
-
+import s from "./FilterRadio.module.scss";
 export const FilterRadio = ({ handelTypeChange, data, type }) => (
-  <div>
+  <>
     <input
       className={s.radio}
       type="radio"
@@ -12,10 +11,8 @@ export const FilterRadio = ({ handelTypeChange, data, type }) => (
       checked={type === data.value}
       onChange={handelTypeChange}
     />
-    <label
-      className={classNames(s.label, `${s.label}_${data.value}`)}
-      htmlFor={data.value}>
+    <label className={classNames(s.label, data.className)} htmlFor={data.value}>
       {data.title}
     </label>
-  </div>
+  </>
 );

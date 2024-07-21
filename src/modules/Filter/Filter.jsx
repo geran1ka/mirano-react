@@ -3,20 +3,24 @@ import s from "./Filter.module.scss";
 import { Choices } from "../Choices/Choices";
 import { useEffect, useRef, useState } from "react";
 import { fetchGoods } from "../../redux/goodsSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { debounce, getValidFilters } from "../../util";
-import { toggleName } from "../../redux/choicesSlice";
+import { FilterRadio } from "./FilterRadio/FilterRadio";
+import { changePrice, changeType } from "../../redux/filtersSlice";
 
-export const Filter = () => {
+const filterTypes = [
+  { title: "Цветы", value: "bouquets", className: s.label_bouquets },
+  { title: "Игрушки", value: "toys", className: s.label_toys },
+  { title: "Открытки", value: "postcards", className: s.label_postcards },
+];
+
+export const Filter = ({ setTitleGoods }) => {
   const [openChoice, setOpenChoice] = useState(null);
 
   const dispatch = useDispatch();
-  const [filters, setFilters] = useState({
-    type: "bouquets",
-    minPrice: "",
-    maxPrice: "",
-    category: "",
-  });
+
+  const filters = useSelector((state) => state.filters);
+  console.log("filters: ", filters);
 
   const prevFiltersRef = useRef({});
 
@@ -30,10 +34,17 @@ export const Filter = () => {
     const prevFilters = prevFiltersRef.current;
     const validFilters = getValidFilters(filters);
 
-    if (prevFilters.type !== filters.type) {
+    if (!validFilters.type) {
+      return;
+    }
+
+    if (prevFilters.type !== validFilters.type) {
       dispatch(fetchGoods(validFilters));
+      setTitleGoods(
+        filterTypes.find((item) => item.value === validFilters.type).title,
+      );
     } else {
-      debounceFetchGoods(filters);
+      debounceFetchGoods(validFilters);
     }
     prevFiltersRef.current = filters;
   }, [dispatch, debounceFetchGoods, filters]);
@@ -44,22 +55,13 @@ export const Filter = () => {
 
   const handelTypeChange = ({ target }) => {
     const { value } = target;
-    const newFilters = { ...filters, type: value, minPrice: "", maxPrice: "" };
-    setFilters(newFilters);
-    setOpenChoice(null);
+    dispatch(changeType(value));
+    setOpenChoice(-1);
   };
 
   const handelPriceChange = ({ target }) => {
     const { name, value } = target;
-    const newFilters = {
-      ...filters,
-      [name]: !isNaN(parseInt(value, 10)) ? value : "",
-    };
-    setFilters(newFilters);
-  };
-
-  const handlerChangeName = (e) => {
-    dispatch(toggleName(e.target.textContent));
+    dispatch(changePrice({ name, value }));
   };
 
   return (
@@ -68,53 +70,14 @@ export const Filter = () => {
       <div className="container">
         <form className={s.form}>
           <fieldset className={s.group}>
-            <input
-              className={s.radio}
-              type="radio"
-              name="type"
-              value="bouquets"
-              id="flower"
-              checked={filters.type === "bouquets"}
-              onChange={handelTypeChange}
-            />
-            <label
-              className={classNames(s.label, s.label_flower)}
-              htmlFor="flower"
-              onClick={handlerChangeName}>
-              Цветы
-            </label>
-
-            <input
-              className={s.radio}
-              type="radio"
-              name="type"
-              value="toys"
-              id="toys"
-              checked={filters.type === "toys"}
-              onChange={handelTypeChange}
-            />
-            <label
-              className={classNames(s.label, s.label_toys)}
-              htmlFor="toys"
-              onClick={handlerChangeName}>
-              Игрушки
-            </label>
-
-            <input
-              className={s.radio}
-              type="radio"
-              name="type"
-              value="postcards"
-              id="postcard"
-              checked={filters.type === "postcards"}
-              onChange={handelTypeChange}
-            />
-            <label
-              className={classNames(s.label, s.label_postcard)}
-              htmlFor="postcard"
-              onClick={handlerChangeName}>
-              Открытки
-            </label>
+            {filterTypes.map((item) => (
+              <FilterRadio
+                key={item.value}
+                data={item}
+                handelTypeChange={handelTypeChange}
+                type={filters.type}
+              />
+            ))}
           </fieldset>
 
           <fieldset className={classNames(s.group, s.group_choices)}>
