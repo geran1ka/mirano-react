@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 import { API_URL } from "../../const";
 
 export const Goods = ({ title }) => {
-  console.log("title: ", title);
   const {
     items: goods,
     status: goodsStatus,

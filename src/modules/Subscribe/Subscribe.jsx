@@ -1,7 +1,5 @@
 import s from "./Subscribe.module.scss";
 export const Subscribe = () => {
-  console.log("subscribe");
-
   return (
     <section className={s.subscribe}>
       <div className="container">

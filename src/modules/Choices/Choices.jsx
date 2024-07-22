@@ -8,8 +8,6 @@ export const Choices = ({
   isOpen,
   onToggle,
 }) => {
-  console.log("choices");
-
   return (
     <div className={classNames(s.choices, className)}>
       <button

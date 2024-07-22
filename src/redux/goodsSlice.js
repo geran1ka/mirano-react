@@ -5,12 +5,20 @@ import { API_URL } from "../const";
 export const fetchGoods = createAsyncThunk(
   "goods/fetchGoods",
   async (params) => {
-    const queryString = new URLSearchParams(params).toString();
-    const response = await fetch(
-      `${API_URL}/api/products${queryString ? `?${queryString}` : ""}`,
-    );
+    try {
+      const queryString = new URLSearchParams(params).toString();
+      const response = await fetch(
+        `${API_URL}/api/products${queryString ? `?${queryString}` : ""}`,
+      );
 
-    return await response.json();
+      if (!response.ok) {
+        throw new Error("Не удалось получить данные по товарам");
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.log(error);
+    }
   },
 );
 

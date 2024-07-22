@@ -64,16 +64,21 @@ export const Cart = () => {
         <p className={s.dateDelivery}>сегодня в 14:00</p>
 
         <ul className={s.list}>
-          {items.map((item) => (
-            <CartItem key={item.id} {...item} />
-          ))}
+          {items ? (
+            items.map((item) => <CartItem key={item.id} {...item} />)
+          ) : (
+            <li>Корзина пуста</li>
+          )}
         </ul>
 
         <div className={s.footer}>
           <button className={s.orderBtn} onClick={handlerModalOpen}>
             Оформить
           </button>
-          <p className={classNames(s.price, s.price_total)}>0&nbsp;₽</p>
+          <p className={classNames(s.price, s.price_total)}>
+            {items.reduce((acc, item) => acc + item.price, 0)}
+            &nbsp;₽
+          </p>
         </div>
       </div>
     </section>

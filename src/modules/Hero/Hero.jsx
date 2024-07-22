@@ -1,8 +1,6 @@
 import classNames from "classnames";
 import s from "./Hero.module.scss";
 export const Hero = () => {
-  console.log("hero");
-
   return (
     <section className={s.hero}>
       <div className="container">

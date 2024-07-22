@@ -20,7 +20,6 @@ export const Filter = ({ setTitleGoods }) => {
   const dispatch = useDispatch();
 
   const filters = useSelector((state) => state.filters);
-  console.log("filters: ", filters);
 
   const prevFiltersRef = useRef({});
 

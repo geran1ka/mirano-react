@@ -1,12 +1,14 @@
+import { useState } from "react";
+import { API_URL } from "../../const";
 import s from "./CartItem.module.scss";
 
-export const CartItem = ({ id, title, price, img }) => {
-  console.log("cartitem");
+export const CartItem = ({ id, name, price, photoUrl, quantity }) => {
+  const [quantityValue, setQuantityValue] = useState(quantity);
 
   return (
     <li className={s.item}>
-      <img className={s.img} src={img} alt={title} />
-      <h4 className={s.itemTitle}>{title}</h4>
+      <img className={s.img} src={`${API_URL}${photoUrl}`} alt={name} />
+      <h4 className={s.itemTitle}>{name}</h4>
       <div className={s.counter}>
         <button className={s.counterBtn}>-</button>
         <input
@@ -14,7 +16,10 @@ export const CartItem = ({ id, title, price, img }) => {
           type="number"
           max="99"
           min="0"
-          value="1"
+          value={quantityValue}
+          onChange={(e) => {
+            setQuantityValue(e.target.value);
+          }}
         />
         <button className={s.counterBtn}>+</button>
       </div>
