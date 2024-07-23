@@ -2,14 +2,14 @@ import classNames from "classnames";
 import s from "./Header.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleCart } from "../../redux/cartSlice";
-import { useState } from "react";
 import { fetchGoods } from "../../redux/goodsSlice";
 import { changeType } from "../../redux/filtersSlice";
+import { changeSearchValue } from "../../redux/searchSlice";
 
 export const Header = ({ setTitleGoods }) => {
   const dispatch = useDispatch();
   const itemsCart = useSelector((state) => state.cart.items);
-  const [searchValue, setSearchValue] = useState("");
+  const searchValue = useSelector((state) => state.search.value);
 
   const handlerCartToggle = () => {
     dispatch(toggleCart());
@@ -17,11 +17,18 @@ export const Header = ({ setTitleGoods }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(changeSearchValue(searchValue));
+
     dispatch(fetchGoods({ search: searchValue }));
     setTitleGoods("Результат поиска");
-    setSearchValue("");
+    dispatch(changeSearchValue(""));
     dispatch(changeType(""));
   };
+
+  const handlerSearchValue = ({ target }) => {
+    dispatch(changeSearchValue(target.value));
+  };
+
   return (
     <header className={s.header}>
       <div className={classNames("container", s.container)}>
@@ -32,9 +39,7 @@ export const Header = ({ setTitleGoods }) => {
             name="search"
             placeholder="Букет из роз"
             value={searchValue}
-            onChange={({ target }) => {
-              setSearchValue(target.value);
-            }}
+            onChange={handlerSearchValue}
           />
 
           <button className={s.searchButton} aria-label="начать поиск">

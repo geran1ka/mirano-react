@@ -4,7 +4,7 @@ import { API_URL } from "../const";
 
 export const fetchGoods = createAsyncThunk(
   "goods/fetchGoods",
-  async (params) => {
+  async (params, { rejectWithValue }) => {
     try {
       const queryString = new URLSearchParams(params).toString();
       const response = await fetch(
@@ -18,6 +18,9 @@ export const fetchGoods = createAsyncThunk(
       return await response.json();
     } catch (error) {
       console.log(error);
+      return rejectWithValue(
+        `${error.response.status} - ${error.response.statusText}`,
+      );
     }
   },
 );

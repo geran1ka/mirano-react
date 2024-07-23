@@ -37,7 +37,7 @@ export const Goods = ({ title }) => {
     );
   }
 
-  if (!goods.length) {
+  if (!goods.length && goodsStatus === "success") {
     content = <p>По вашему запросу ничего не найдено</p>;
   }
 
