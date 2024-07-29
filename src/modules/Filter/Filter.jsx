@@ -6,7 +6,11 @@ import { fetchGoods } from "../../redux/goodsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { debounce, getValidFilters } from "../../util";
 import { FilterRadio } from "./FilterRadio/FilterRadio";
-import { changePrice, changeType } from "../../redux/filtersSlice";
+import {
+  changeCategory,
+  changePrice,
+  changeType,
+} from "../../redux/filtersSlice";
 
 const filterTypes = [
   { title: "Цветы", value: "bouquets", className: s.label_bouquets },
@@ -14,12 +18,14 @@ const filterTypes = [
   { title: "Открытки", value: "postcards", className: s.label_postcards },
 ];
 
-export const Filter = ({ setTitleGoods }) => {
+export const Filter = ({ setTitleGoods, filterRef }) => {
   const [openChoice, setOpenChoice] = useState(null);
 
   const dispatch = useDispatch();
 
   const filters = useSelector((state) => state.filters);
+
+  const categories = useSelector((state) => state.goods.categories);
 
   const prevFiltersRef = useRef({});
 
@@ -63,8 +69,13 @@ export const Filter = ({ setTitleGoods }) => {
     dispatch(changePrice({ name, value }));
   };
 
+  const handleCategoryChange = (category) => {
+    dispatch(changeCategory(category));
+    setOpenChoice(-1);
+  };
+
   return (
-    <section className={s.filter}>
+    <section className={s.filter} ref={filterRef}>
       <h2 className="visually-hidden"></h2>
       <div className="container">
         <form className={s.form}>
@@ -104,39 +115,43 @@ export const Filter = ({ setTitleGoods }) => {
               </fieldset>
             </Choices>
 
-            <Choices
-              className={s.choices_type}
-              buttonLabel="Тип продукта"
-              isOpen={openChoice === 1}
-              onToggle={() => handleChoicesToggle(1)}>
-              <ul className={s.typeList}>
-                <li className={s.typeItem}>
-                  <button className={s.typeButton} type="button">
-                    Монобукеты
-                  </button>
-                </li>
-                <li className={s.typeItem}>
-                  <button className={s.typeButton} type="button">
-                    Авторские букеты
-                  </button>
-                </li>
-                <li className={s.typeItem}>
-                  <button className={s.typeButton} type="button">
-                    Цветы в коробке
-                  </button>
-                </li>
-                <li className={s.typeItem}>
-                  <button className={s.typeButton} type="button">
-                    Цветы в корзине
-                  </button>
-                </li>
-                <li className={s.typeItem}>
-                  <button className={s.typeButton} type="button">
-                    Букеты из сухоцветов
-                  </button>
-                </li>
-              </ul>
-            </Choices>
+            {categories.length ? (
+              <Choices
+                className={s.choices_type}
+                buttonLabel="Тип продукта"
+                isOpen={openChoice === 1}
+                onToggle={() => handleChoicesToggle(1)}>
+                <ul className={s.typeList}>
+                  {categories.map((category) => (
+                    <li className={s.typeItem} key={category}>
+                      <button
+                        className={classNames(
+                          s.typeButton,
+                          category === filters.category
+                            ? s.typeButton_active
+                            : "",
+                        )}
+                        type="button"
+                        onClick={() => {
+                          handleCategoryChange(category);
+                        }}>
+                        {category}
+                      </button>
+                    </li>
+                  ))}
+                  <li className={s.typeItem}>
+                    <button
+                      className={classNames(s.typeButton)}
+                      type="button"
+                      onClick={() => {
+                        handleCategoryChange("");
+                      }}>
+                      Все товары
+                    </button>
+                  </li>
+                </ul>
+              </Choices>
+            ) : null}
           </fieldset>
         </form>
       </div>

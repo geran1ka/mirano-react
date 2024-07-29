@@ -1,32 +1,31 @@
 import classNames from "classnames";
 import s from "./Footer.module.scss";
 
-export const Footer = () => {
-  return (
-    <footer className={s.footer}>
-      <div className={classNames("container", s.container)}>
-        <img
-          className={s.logo}
-          src="img/logo.svg"
-          alt="Логотип Mirano Flower Boutique"
-        />
+export const Footer = () => (
+  <footer className={s.footer}>
+    <div className={classNames("container", s.container)}>
+      <img
+        className={s.logo}
+        src="img/logo.svg"
+        alt="Логотип Mirano Flower Boutique"
+      />
 
-        <address className={s.address}>
-          <a className={s.mail} href="mailto:Mirano@gmail.com">
-            Mirano@gmail.com
-          </a>
+      <address className={s.address}>
+        <a className={s.mail} href="mailto:Mirano@gmail.com">
+          Mirano@gmail.com
+        </a>
 
-          <ul className={s.socialList}>
-            <li className={s.socialItem}>
-              <a className={s.link} href="#" aria-label="канал в телеграм">
-                <svg
-                  width="28"
-                  height="28"
-                  viewBox="0 0 28 28"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M14 2.625C7.721 2.625 2.625 7.721 2.625 14C2.625 20.279 7.721 25.375 14
+        <ul className={s.socialList}>
+          <li className={s.socialItem}>
+            <a className={s.link} href="#" aria-label="канал в телеграм">
+              <svg
+                width="28"
+                height="28"
+                viewBox="0 0 28 28"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M14 2.625C7.721 2.625 2.625 7.721 2.625 14C2.625 20.279 7.721 25.375 14
                   25.375C20.279 25.375 25.375 20.279 25.375 14C25.375 7.721 20.279 2.625 14 2.625ZM19.278
                   10.36C19.1074 12.1573 18.368 16.5253 17.9926 18.5386C17.8334 19.3918 17.5149 19.6761
                   17.2191 19.7103C16.5594 19.7671 16.0589 19.278 15.4219 18.8571C14.4209 18.1974 13.8521
@@ -39,22 +38,22 @@ export const Footer = () => {
                   13.3289 11.4861 14.4323 11.0311C17.5945 9.71163 18.2429 9.48413 18.6751 9.48413C18.7661
                   9.48413 18.9823 9.50688 19.1188 9.62063C19.2325 9.71163 19.2666 9.83675 19.278
                   9.92775C19.2666 9.996 19.2894 10.2008 19.278 10.36Z"
-                    fill="#D17D2F"
-                  />
-                </svg>
-              </a>
-            </li>
+                  fill="#D17D2F"
+                />
+              </svg>
+            </a>
+          </li>
 
-            <li className={s.socialItem}>
-              <a className={s.link} href="#" aria-label="канал в youtube">
-                <svg
-                  width="28"
-                  height="28"
-                  viewBox="0 0 28 28"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M11.6667 17.4999L17.7217 13.9999L11.6667 10.4999V17.4999ZM25.1534 8.36492C25.305
+          <li className={s.socialItem}>
+            <a className={s.link} href="#" aria-label="канал в youtube">
+              <svg
+                width="28"
+                height="28"
+                viewBox="0 0 28 28"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M11.6667 17.4999L17.7217 13.9999L11.6667 10.4999V17.4999ZM25.1534 8.36492C25.305
                   8.91325 25.41 9.64825 25.48 10.5816C25.5617 11.5149 25.5967 12.3199 25.5967
                   13.0199L25.6667 13.9999C25.6667 16.5549 25.48 18.4333 25.1534 19.6349C24.8617
                   20.6849 24.185 21.3616 23.135 21.6533C22.5867 21.8049 21.5834 21.9099 20.0434
@@ -65,22 +64,22 @@ export const Footer = () => {
                   7.31492 3.81504 6.63825 4.86504 6.34659C5.41337 6.19492 6.41671 6.08992 7.95671
                   6.01992C9.47337 5.93825 10.8617 5.90325 12.145 5.90325L14 5.83325C18.8884 5.83325
                   21.9334 6.01992 23.135 6.34659C24.185 6.63825 24.8617 7.31492 25.1534 8.36492Z"
-                    fill="#D17D2F"
-                  />
-                </svg>
-              </a>
-            </li>
+                  fill="#D17D2F"
+                />
+              </svg>
+            </a>
+          </li>
 
-            <li className={s.socialItem}>
-              <a className={s.link} href="#" aria-label="группа в вк">
-                <svg
-                  width="28"
-                  height="28"
-                  viewBox="0 0 28 28"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M14 2.625C7.71768 2.625 2.625 7.71768 2.625 14C2.625 20.2823 7.71768 25.375 14
+          <li className={s.socialItem}>
+            <a className={s.link} href="#" aria-label="группа в вк">
+              <svg
+                width="28"
+                height="28"
+                viewBox="0 0 28 28"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M14 2.625C7.71768 2.625 2.625 7.71768 2.625 14C2.625 20.2823 7.71768 25.375 14
                   25.375C20.2823 25.375 25.375 20.2823 25.375 14C25.375 7.71768 20.2823 2.625 14
                   2.625ZM18.3746 15.4586C18.3746 15.4586 19.3806 16.4515 19.6283 16.9125C19.6354
                   16.922 19.6389 16.9314 19.6413 16.9362C19.742 17.1056 19.7657 17.2371 19.7159
@@ -104,35 +103,34 @@ export const Footer = () => {
                   10.8203 17.1957 10.8209H19.306C19.5358 10.8209 19.6934 10.8553 19.723 10.9442C19.7752
                   11.0852 19.7136 11.5153 18.7502 12.8198L18.3201 13.3874C17.4469 14.532 17.4469 14.5901
                   18.3746 15.4586Z"
-                    fill="#D17D2F"
-                  />
-                </svg>
-              </a>
-            </li>
-          </ul>
-        </address>
+                  fill="#D17D2F"
+                />
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </address>
 
-        <div className={s.developers}>
-          <p className={s.developersTitle}>Проект сделан в учебных целях</p>
+      <div className={s.developers}>
+        <p className={s.developersTitle}>Проект сделан в учебных целях</p>
 
-          <ul className={s.developersList}>
-            <li className={s.developersItem}>
-              Designer:&nbsp;
-              <a className={s.link} href="Anastasia_Ilina">
-                Anastasia Ilina
-              </a>
-            </li>
-            <li className={s.developersItem}>
-              Developer:&nbsp;
-              <a className={s.link} href="maksim_leskin">
-                Makism Leskin
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        <p className={s.copyright}>©MIRANO, 2024</p>
+        <ul className={s.developersList}>
+          <li className={s.developersItem}>
+            Designer:&nbsp;
+            <a className={s.link} href="Anastasia_Ilina">
+              Anastasia Ilina
+            </a>
+          </li>
+          <li className={s.developersItem}>
+            Developer:&nbsp;
+            <a className={s.link} href="maksim_leskin">
+              Makism Leskin
+            </a>
+          </li>
+        </ul>
       </div>
-    </footer>
-  );
-};
+
+      <p className={s.copyright}>©MIRANO, 2024</p>
+    </div>
+  </footer>
+);

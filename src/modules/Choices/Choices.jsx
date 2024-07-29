@@ -7,17 +7,15 @@ export const Choices = ({
   className,
   isOpen,
   onToggle,
-}) => {
-  return (
-    <div className={classNames(s.choices, className)}>
-      <button
-        className={classNames(s.btn, !isOpen && s.btn_open)}
-        type="button"
-        onClick={onToggle}>
-        {buttonLabel}
-      </button>
+}) => (
+  <div className={classNames(s.choices, className)}>
+    <button
+      className={classNames(s.btn, !isOpen && s.btn_open)}
+      type="button"
+      onClick={onToggle}>
+      {buttonLabel}
+    </button>
 
-      {isOpen && <div className={classNames(s.box)}>{children}</div>}
-    </div>
-  );
-};
+    {isOpen && <div className={classNames(s.box)}>{children}</div>}
+  </div>
+);

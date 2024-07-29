@@ -3,7 +3,7 @@ import { CartItem } from "../CartItem/CartItem";
 import s from "./Cart.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { closeCart, toggleCart } from "../../redux/cartSlice";
-import { openModal } from "../../redux/modalSlice";
+import { openOrder } from "../../redux/orderSlice";
 import { useEffect, useRef } from "react";
 
 export const Cart = () => {
@@ -18,7 +18,7 @@ export const Cart = () => {
   };
 
   const handlerModalOpen = () => {
-    dispatch(openModal());
+    dispatch(openOrder());
     dispatch(closeCart());
   };
 
@@ -72,11 +72,14 @@ export const Cart = () => {
         </ul>
 
         <div className={s.footer}>
-          <button className={s.orderBtn} onClick={handlerModalOpen}>
+          <button
+            className={s.orderBtn}
+            onClick={handlerModalOpen}
+            disabled={!items.length}>
             Оформить
           </button>
           <p className={classNames(s.price, s.price_total)}>
-            {items.reduce((acc, item) => acc + item.price, 0)}
+            {items.reduce((acc, item) => acc + item.price * item.quantity, 0)}
             &nbsp;₽
           </p>
         </div>

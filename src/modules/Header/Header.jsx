@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleCart } from "../../redux/cartSlice";
 import { fetchGoods } from "../../redux/goodsSlice";
 import { changeType } from "../../redux/filtersSlice";
-import { changeSearchValue } from "../../redux/searchSlice";
+import { useState } from "react";
 
-export const Header = ({ setTitleGoods }) => {
+export const Header = ({ setTitleGoods, scrollToFilter }) => {
   const dispatch = useDispatch();
   const itemsCart = useSelector((state) => state.cart.items);
-  const searchValue = useSelector((state) => state.search.value);
+  const [searchValue, setSearchValue] = useState("");
 
   const handlerCartToggle = () => {
     dispatch(toggleCart());
@@ -17,16 +17,15 @@ export const Header = ({ setTitleGoods }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(changeSearchValue(searchValue));
-
     dispatch(fetchGoods({ search: searchValue }));
     setTitleGoods("Результат поиска");
-    dispatch(changeSearchValue(""));
     dispatch(changeType(""));
+    scrollToFilter();
+    setSearchValue("");
   };
 
   const handlerSearchValue = ({ target }) => {
-    dispatch(changeSearchValue(target.value));
+    setSearchValue(target.value);
   };
 
   return (

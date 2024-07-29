@@ -144,7 +144,7 @@
     opacity: 0;
   }
 
-  &:defaultchecked::after {
+  &:checked::after {
     opacity: 1;
   }
 }
