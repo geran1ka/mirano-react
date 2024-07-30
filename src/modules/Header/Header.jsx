@@ -2,14 +2,15 @@ import classNames from "classnames";
 import s from "./Header.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleCart } from "../../redux/cartSlice";
-import { fetchGoods } from "../../redux/goodsSlice";
-import { changeType } from "../../redux/filtersSlice";
-import { useState } from "react";
+import { changeSearch } from "../../redux/filtersSlice";
+import { useRef, useState } from "react";
 
-export const Header = ({ setTitleGoods, scrollToFilter }) => {
+export const Header = () => {
   const dispatch = useDispatch();
   const itemsCart = useSelector((state) => state.cart.items);
   const [searchValue, setSearchValue] = useState("");
+
+  const searchInputRef = useRef(null);
 
   const handlerCartToggle = () => {
     dispatch(toggleCart());
@@ -17,11 +18,22 @@ export const Header = ({ setTitleGoods, scrollToFilter }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(fetchGoods({ search: searchValue }));
-    setTitleGoods("Результат поиска");
-    dispatch(changeType(""));
-    scrollToFilter();
-    setSearchValue("");
+    if (searchValue.trim() !== "") {
+      searchInputRef.current.style.cssText = ``;
+
+      dispatch(changeSearch(searchValue));
+      setSearchValue("");
+    } else {
+      console.log(2);
+      searchInputRef.current.style.cssText = `
+        outline: 2px solid red;
+        outlineOffset: 3px;
+      `;
+
+      setTimeout(() => {
+        searchInputRef.current.style.cssText = ``;
+      }, 2000);
+    }
   };
 
   const handlerSearchValue = ({ target }) => {
@@ -39,6 +51,7 @@ export const Header = ({ setTitleGoods, scrollToFilter }) => {
             placeholder="Букет из роз"
             value={searchValue}
             onChange={handlerSearchValue}
+            ref={searchInputRef}
           />
 
           <button className={s.searchButton} aria-label="начать поиск">
@@ -67,9 +80,9 @@ export const Header = ({ setTitleGoods, scrollToFilter }) => {
         />
 
         <button className={s.cartButton} onClick={handlerCartToggle}>
-          {itemsCart ?
-            itemsCart.reduce((acc, item) => acc + item.quantity, 0) :
-            0}
+          {itemsCart
+            ? itemsCart.reduce((acc, item) => acc + item.quantity, 0)
+            : 0}
         </button>
       </div>
     </header>

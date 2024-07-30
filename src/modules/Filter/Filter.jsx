@@ -18,16 +18,17 @@ const filterTypes = [
   { title: "Открытки", value: "postcards", className: s.label_postcards },
 ];
 
-export const Filter = ({ setTitleGoods, filterRef }) => {
+export const Filter = ({ setTitleGoods }) => {
   const [openChoice, setOpenChoice] = useState(null);
 
   const dispatch = useDispatch();
 
   const filters = useSelector((state) => state.filters);
-
+  const goods = useSelector((state) => state.goods.items);
   const categories = useSelector((state) => state.goods.categories);
 
-  const prevFiltersRef = useRef({});
+  const filterRef = useRef(null);
+  const prevFiltersRef = useRef(filters);
 
   const debounceFetchGoods = useRef(
     debounce((filters) => {
@@ -36,21 +37,50 @@ export const Filter = ({ setTitleGoods, filterRef }) => {
   ).current;
 
   useEffect(() => {
-    const prevFilters = prevFiltersRef.current;
-    const validFilters = getValidFilters(filters);
+    if (goods.length) {
+      filterRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [goods]);
 
-    if (!validFilters.type) {
+  useEffect(() => {
+    const prevMinPrice = prevFiltersRef.current.minPrice;
+    const prevMaxPrice = prevFiltersRef.current.maxPrice;
+
+    const validFilters = getValidFilters(filters);
+    console.log("validFilters: ", validFilters);
+
+    if (!validFilters.type && !validFilters.search) {
       return;
     }
 
-    if (prevFilters.type !== validFilters.type) {
-      dispatch(fetchGoods(validFilters));
-      setTitleGoods(
-        filterTypes.find((item) => item.value === validFilters.type).title,
-      );
-    } else {
+    if (
+      prevMinPrice !==
+        (validFilters.minPrice === undefined ? "" : validFilters.minPrice) ||
+      prevMaxPrice !==
+        (validFilters.maxPrice === undefined ? "" : validFilters.maxPrice)
+    ) {
+      console.log("prevMinPrice: ", prevMinPrice);
+      console.log("validFilters.minPrice: ", validFilters.minPrice);
+
+      console.log("min");
+
       debounceFetchGoods(validFilters);
+    } else {
+      dispatch(fetchGoods(validFilters));
+
+      const type = filterTypes.find((item) => item.value === validFilters.type);
+      console.log("type: ", type);
+      if (type) {
+        console.log("type");
+        setTitleGoods(type.title);
+      }
+
+      if (validFilters.search) {
+        console.log("sea");
+        setTitleGoods("Результаты поиска");
+      }
     }
+
     prevFiltersRef.current = filters;
   }, [dispatch, debounceFetchGoods, filters]);
 
@@ -127,9 +157,9 @@ export const Filter = ({ setTitleGoods, filterRef }) => {
                       <button
                         className={classNames(
                           s.typeButton,
-                          category === filters.category ?
-                            s.typeButton_active :
-                            "",
+                          category === filters.category
+                            ? s.typeButton_active
+                            : "",
                         )}
                         type="button"
                         onClick={() => {

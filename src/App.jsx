@@ -12,13 +12,6 @@ import { fetchCart, registerCart } from "./redux/cartSlice";
 export const App = () => {
   const dispatch = useDispatch();
   const [titleGoods, setTitleGoods] = useState("");
-  const filterRef = useRef(null);
-
-  const scrollToFilter = () => {
-    if (filterRef.current) {
-      filterRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  };
 
   useEffect(() => {
     const initializeCart = async () => {
@@ -31,12 +24,12 @@ export const App = () => {
 
   return (
     <>
-      <Header setTitleGoods={setTitleGoods} scrollToFilter={scrollToFilter} />
+      <Header setTitleGoods={setTitleGoods} />
 
       <main>
         <Hero />
 
-        <Filter setTitleGoods={setTitleGoods} filterRef={filterRef} />
+        <Filter setTitleGoods={setTitleGoods} />
 
         <Goods title={titleGoods} />
 
