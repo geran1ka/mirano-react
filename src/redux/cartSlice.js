@@ -45,8 +45,16 @@ export const fetchCart = createAsyncThunk("cart/fetchCart", async () => {
 
 export const addItemToCart = createAsyncThunk(
   "cart/addToCart",
-  async ({ productId, quantity }) => {
+  async ({ productId, quantity }, { getState, rejectWithValue }) => {
     try {
+      const state = getState();
+
+      const cartItems = state.cart.items;
+
+      if (isNaN(parseInt(quantity))) {
+        const cartItem = cartItems.find((item) => item.id === productId);
+        quantity = cartItem ? cartItem.quantity + 1 : 1;
+      }
       const response = await fetch(`${API_URL}/api/cart/items`, {
         method: "POST",
         credentials: "include",
@@ -62,7 +70,7 @@ export const addItemToCart = createAsyncThunk(
 
       return await response.json();
     } catch (error) {
-      console.log(error);
+      return rejectWithValue(error.message);
     }
   },
 );
@@ -75,7 +83,10 @@ const cartSlice = createSlice({
       state.isOpen = !state.isOpen;
     },
     closeCart: (state) => {
-      state.isOpen = !state.isOpen;
+      state.isOpen = false;
+    },
+    openCart: (state) => {
+      state.isOpen = true;
     },
   },
   extraReducers: (builder) => {
@@ -90,7 +101,7 @@ const cartSlice = createSlice({
       .addCase(registerCart.rejected, (state, action) => {
         state.status = "failed";
         state.accessKey = "";
-        state.error = action.error.message;
+        state.error = action.payload || action.error.message;
       })
       .addCase(fetchCart.pending, (state) => {
         state.status = "loading";
@@ -101,7 +112,7 @@ const cartSlice = createSlice({
       })
       .addCase(fetchCart.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.error.message;
+        state.error = action.payload || action.error.message;
       })
       .addCase(addItemToCart.pending, (state) => {
         state.status = "loading";
@@ -113,10 +124,10 @@ const cartSlice = createSlice({
       })
       .addCase(addItemToCart.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.error.message;
+        state.error = action.payload || action.error.message;
       });
   },
 });
 
 export default cartSlice.reducer;
-export const { toggleCart, closeCart } = cartSlice.actions;
+export const { toggleCart, closeCart, openCart } = cartSlice.actions;

@@ -67,9 +67,9 @@ export const Header = ({ setTitleGoods, scrollToFilter }) => {
         />
 
         <button className={s.cartButton} onClick={handlerCartToggle}>
-          {itemsCart
-            ? itemsCart.reduce((acc, item) => acc + item.quantity, 0)
-            : 0}
+          {itemsCart ?
+            itemsCart.reduce((acc, item) => acc + item.quantity, 0) :
+            0}
         </button>
       </div>
     </header>

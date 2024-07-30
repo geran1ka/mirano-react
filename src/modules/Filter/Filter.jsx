@@ -127,9 +127,9 @@ export const Filter = ({ setTitleGoods, filterRef }) => {
                       <button
                         className={classNames(
                           s.typeButton,
-                          category === filters.category
-                            ? s.typeButton_active
-                            : "",
+                          category === filters.category ?
+                            s.typeButton_active :
+                            "",
                         )}
                         type="button"
                         onClick={() => {

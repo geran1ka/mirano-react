@@ -71,6 +71,7 @@ export const Order = () => {
                     value={orderData.buyerName}
                     placeholder="Имя"
                     onChange={handleChange}
+                    required
                   />
                   <input
                     className={s.input}
@@ -79,6 +80,7 @@ export const Order = () => {
                     value={orderData.buyerPhone}
                     placeholder="Телефон"
                     onChange={handleChange}
+                    required
                   />
                 </div>
               </fieldset>
@@ -92,6 +94,7 @@ export const Order = () => {
                     value={orderData.recipientName}
                     placeholder="Имя"
                     onChange={handleChange}
+                    required
                   />
                   <input
                     className={s.input}
@@ -100,6 +103,7 @@ export const Order = () => {
                     value={orderData.recipientPhone}
                     placeholder="Телефон"
                     onChange={handleChange}
+                    required
                   />
                 </div>
               </fieldset>
@@ -113,6 +117,7 @@ export const Order = () => {
                     value={orderData.street}
                     placeholder="Улица"
                     onChange={handleChange}
+                    required
                   />
                   <input
                     className={classNames(s.input, s.input_min)}
@@ -121,6 +126,7 @@ export const Order = () => {
                     value={orderData.house}
                     placeholder="Дом"
                     onChange={handleChange}
+                    required
                   />
                   <input
                     className={classNames(s.input, s.input_min)}
@@ -129,6 +135,7 @@ export const Order = () => {
                     value={orderData.apartment}
                     placeholder="Квартира"
                     onChange={handleChange}
+                    required
                   />
                 </div>
               </fieldset>
@@ -147,12 +154,14 @@ export const Order = () => {
                   </label>
                 </div>
                 <div className={s.delivery}>
-                  <label htmlFor="delivery">Доставка 01.07</label>
+                  <label htmlFor="delivery">Дата доставки</label>
                   <input
-                    type="hidden"
+                    className={s.input}
+                    type="date"
                     name="deliveryDate"
                     value={orderData.deliveryDate}
                     onChange={handleChange}
+                    required
                   />
                   <div className={s.selectWrapper}>
                     <select
@@ -160,7 +169,8 @@ export const Order = () => {
                       name="deliveryTime"
                       value={orderData.deliveryTime}
                       onChange={handleChange}
-                      id="delivery">
+                      id="delivery"
+                      required>
                       <option value="9-12">с 9:00 до 12:00</option>
                       <option value="12-15">с 12:00 до 15:00</option>
                       <option value="15-18">с 15:00 до 18:00</option>
