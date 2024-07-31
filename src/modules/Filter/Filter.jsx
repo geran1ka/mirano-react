@@ -24,7 +24,6 @@ export const Filter = ({ setTitleGoods }) => {
   const dispatch = useDispatch();
 
   const filters = useSelector((state) => state.filters);
-  const goods = useSelector((state) => state.goods.items);
   const categories = useSelector((state) => state.goods.categories);
 
   const filterRef = useRef(null);
@@ -37,17 +36,16 @@ export const Filter = ({ setTitleGoods }) => {
   ).current;
 
   useEffect(() => {
-    if (goods.length) {
+    if (filters !== prevFiltersRef.current) {
       filterRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [goods]);
+  }, [filters]);
 
   useEffect(() => {
     const prevMinPrice = prevFiltersRef.current.minPrice;
     const prevMaxPrice = prevFiltersRef.current.maxPrice;
 
     const validFilters = getValidFilters(filters);
-    console.log("validFilters: ", validFilters);
 
     if (!validFilters.type && !validFilters.search) {
       return;
@@ -59,24 +57,16 @@ export const Filter = ({ setTitleGoods }) => {
       prevMaxPrice !==
         (validFilters.maxPrice === undefined ? "" : validFilters.maxPrice)
     ) {
-      console.log("prevMinPrice: ", prevMinPrice);
-      console.log("validFilters.minPrice: ", validFilters.minPrice);
-
-      console.log("min");
-
       debounceFetchGoods(validFilters);
     } else {
       dispatch(fetchGoods(validFilters));
 
       const type = filterTypes.find((item) => item.value === validFilters.type);
-      console.log("type: ", type);
       if (type) {
-        console.log("type");
         setTitleGoods(type.title);
       }
 
       if (validFilters.search) {
-        console.log("sea");
         setTitleGoods("Результаты поиска");
       }
     }

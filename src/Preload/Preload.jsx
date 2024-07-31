@@ -1,7 +1,3 @@
-import "./Preload.modules.scss";
+import s from "./Preload.module.scss";
 
-export const Preload = () => {
-  console.log("preload");
-
-  return <div>Preload</div>;
-};
+export const Preload = () => <div className={s.preload}></div>;

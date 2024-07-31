@@ -5,6 +5,7 @@ import s from "./Goods.module.scss";
 import { useSelector } from "react-redux";
 
 import { API_URL } from "../../const";
+import { Preload } from "../../Preload/Preload";
 
 export const Goods = ({ title }) => {
   const {
@@ -15,7 +16,7 @@ export const Goods = ({ title }) => {
 
   let content = null;
   if (goodsStatus === "loading") {
-    content = <p>Loading...</p>;
+    content = <Preload />;
   }
 
   if (goodsStatus === "success" && goods.length) {
@@ -45,7 +46,9 @@ export const Goods = ({ title }) => {
     content = <p>Error...{error}</p>;
   }
   return (
-    <section className={s.goods}>
+    <section
+      className={s.goods}
+      style={{ position: goodsStatus === "loading" ? "relative" : "" }}>
       <div className={classNames("container", s.container)}>
         <div className={s.box}>
           <h2 className={s.title}>{title}</h2>
